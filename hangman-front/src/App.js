@@ -18,27 +18,35 @@ export class App extends Component {
   }
 
   async getWord() {
-    return fetch("/word-getter", {
+    var res = await fetch("/word-getter", {
       method: "GET",
       headers: {
         "Content-Type": "text/plain",
       },
     })
-      .then((data) => data.text())
+      .then((response) => {
+        if (!response.ok)
+          throw new Error("Not OK response");
+        return response.text();
+      })
       .catch(() => {
         console.log('error!!!');
-        return null;});
+        return null;
+      });
+    return res;
   }
 
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          {this.state.word !== "" ? (
-            <Word word={this.state.word} />
-          ) : (
-            <h1>Cargando...</h1>
-          )}
+          {
+            this.state.word === null ? <h1>Error!!</h1> : this.state.word !== "" ? (
+              <Word word={this.state.word} />
+            ) : (
+                <h1>Cargando...</h1>
+              )
+          }
         </header>
       </div>
     );
