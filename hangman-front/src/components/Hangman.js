@@ -9,7 +9,9 @@ export class Hangman extends Component {
 
     render() {
         return (
-            <AsciiBox lines={graphs[graphs.length - this.props.lives - 1]}/>
+            <div style={{ fontSize: '2em' }}>
+                <AsciiBox lines={graphs[graphs.length - this.props.lives - 1]}/>
+            </div>
         )
     }
 }
