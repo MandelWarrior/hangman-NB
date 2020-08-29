@@ -14,7 +14,7 @@ export class OneGame {
         this.lives = TRIES;
 
         this.word = word.toUpperCase();
-        this.rawWord = stringTranslate(word, 'ÁÉÍÓÚÄËÏÖÜ', 'AEIOUAEIOU');
+        this.rawWord = stringTranslate(this.word, 'ÁÉÍÓÚÄËÏÖÜ', 'AEIOUAEIOU');
 
         this.usedLetters = [];
         this.hiddenLetters = [];

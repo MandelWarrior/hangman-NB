@@ -19,50 +19,35 @@ export class App extends Component {
   }
 
   componentDidMount() {
+    this.loadWords().then(() => this.newGame());
+  }
 
-    this.newGame();
+  async loadWords() {
+    var response = await fetch("/words_2.txt", {
+      method: "GET",
+      headers: {
+        "Content-Type": "text/plain; charset=latin-1",
+      },
+    });
 
+    let buffer = await response.arrayBuffer();
+
+    let decoder = new TextDecoder("iso-8859-1");
+    let text = decoder.decode(buffer);
+
+    this.words = text.split('\n');
   }
 
   newGame() {
-    this.getWord().then((word) => {
-      if (word !== null) {
-        let game = new OneGame(word);
-        this.setState({ playing: true, game });
-        this.keyboard.enableAll();
-        this.word.hideAllLetters();
-      }
-    });
-  }
-
-  async getWord() {
-    try {
-      let response = await fetch("/word-getter", {
-        method: "GET",
-        headers: {
-          "Content-Type": "text/plain",
-        },
-      });
-
-      if (!response.ok)
-        throw new Error("Not OK response");
-
-      let buffer = await response.arrayBuffer();
-
-      let decoder = new TextDecoder("iso-8859-1");
-      let text = decoder.decode(buffer);
-      return text;
-
-    } catch (error) {
-      console.log('error!!!');
-      return null;
-    }
+    let word = this.words[Math.floor(Math.random() * this.words.length)];
+    let game = new OneGame(word);
+    this.setState({ playing: true, game }, () => {this.keyboard.enableAll();this.word.hideAllLetters();});
   }
 
   keyboardPressed(k) {
-    console.log(k);
     this.keyboard.disableKey(k);
     let indices = this.state.game.revealLetter(k);
+    
     indices.forEach((i) => {
       this.word.setLetterHidden(i, false);
     });
