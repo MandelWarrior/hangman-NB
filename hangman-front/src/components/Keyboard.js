@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 
-import { Grid, Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 
 
 export class Keyboard extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {disabledButtons: []};
+    }
+
     render() {
         return (
             <div>
@@ -11,9 +18,9 @@ export class Keyboard extends Component {
                     <Col>
                         {
                             ["QWERTYUIOP", "ASDFGHJKLÑ", "ZXCVBNM"].map(
-                                row => <Row className="justify-content-center">
+                                row => <Row className="justify-content-center" key={row}>
                                     {
-                                        [...row].map(l => <Button className="m-1">{l}</Button>)
+                                        [...row].map(l => <Button disabled={this.state.disabledButtons.includes(l)} onClick={() => this.props.onKeyPressed(l)} className="m-1 btn-lg" key={l}>{l}</Button>)
                                     }
                                 </Row>
                             )
@@ -23,6 +30,20 @@ export class Keyboard extends Component {
                 </Container>
             </div >
         )
+    }
+
+    disableKey(l) {
+        this.state.disabledButtons.push(l);
+        this.setState({});
+    }
+
+    enableKey(l) {
+        this.state.disabledButtons.remove(l);
+        this.setState({});
+    }
+
+    enableAll(l) {
+        this.setState({disabledButtons: []});
     }
 }
 
