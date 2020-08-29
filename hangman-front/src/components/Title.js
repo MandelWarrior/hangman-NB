@@ -8,7 +8,7 @@ import './Titles.css';
 export class Title extends Component {
     render() {
         return (
-            <div className='small'>
+            <div className='small-font p-5'>
                 <AsciiBox lines={title} />
             </div>
         )

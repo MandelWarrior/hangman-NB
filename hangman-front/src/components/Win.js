@@ -8,7 +8,7 @@ import './Titles.css';
 export class Win extends Component {
     render() {
         return (
-            <div className='small'>
+            <div className='small-font'>
                 <AsciiBox lines={game_win} />
             </div>
         )

@@ -1,0 +1,18 @@
+
+
+@font-face {
+    font-family: Mononoki;
+    src: url(./mononoki-Regular.ttf);
+}
+
+.ascii-box {
+    display: block;
+    white-space: pre;
+    text-align: left;
+    margin: 0 0;
+    font-family: Mononoki, monospace;
+}
+
+.ascii-box-line {
+    line-height: 1;
+}
