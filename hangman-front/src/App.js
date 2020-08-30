@@ -23,7 +23,7 @@ export class App extends Component {
   }
 
   async loadWords() {
-    var response = await fetch("/words_2.txt", {
+    var response = await fetch("./words_2.txt", {
       method: "GET",
       headers: {
         "Content-Type": "text/plain; charset=latin-1",
