@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/hangman/static/css/main.376945c5.chunk.css",
+    "main.js": "/hangman/static/js/main.ad041531.chunk.js",
+    "main.js.map": "/hangman/static/js/main.ad041531.chunk.js.map",
+    "runtime-main.js": "/hangman/static/js/runtime-main.1e5ba2ce.js",
+    "runtime-main.js.map": "/hangman/static/js/runtime-main.1e5ba2ce.js.map",
+    "static/css/2.11829350.chunk.css": "/hangman/static/css/2.11829350.chunk.css",
+    "static/js/2.9838c0d2.chunk.js": "/hangman/static/js/2.9838c0d2.chunk.js",
+    "static/js/2.9838c0d2.chunk.js.map": "/hangman/static/js/2.9838c0d2.chunk.js.map",
+    "index.html": "/hangman/index.html",
+    "precache-manifest.8d2a466010fabbefc7a0bb192401fee4.js": "/hangman/precache-manifest.8d2a466010fabbefc7a0bb192401fee4.js",
+    "service-worker.js": "/hangman/service-worker.js",
+    "static/css/2.11829350.chunk.css.map": "/hangman/static/css/2.11829350.chunk.css.map",
+    "static/css/main.376945c5.chunk.css.map": "/hangman/static/css/main.376945c5.chunk.css.map",
+    "static/js/2.9838c0d2.chunk.js.LICENSE.txt": "/hangman/static/js/2.9838c0d2.chunk.js.LICENSE.txt",
+    "static/media/AsciiBox.css": "/hangman/static/media/mononoki-Regular.0a40eb6f.ttf"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1e5ba2ce.js",
+    "static/css/2.11829350.chunk.css",
+    "static/js/2.9838c0d2.chunk.js",
+    "static/css/main.376945c5.chunk.css",
+    "static/js/main.ad041531.chunk.js"
+  ]
+}
