@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f920240d581284e5d7eeef8cfe9180b5",
+    "revision": "79616e2a51739ac92091e7ccd00cbad9",
     "url": "/hangman-NB/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/hangman-NB/static/css/2.11829350.chunk.css"
   },
   {
-    "revision": "4d4e6c16d117fb7f89ba",
+    "revision": "52b91c177e1479822a30",
     "url": "/hangman-NB/static/css/main.337770b0.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/hangman-NB/static/js/2.9838c0d2.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "4d4e6c16d117fb7f89ba",
-    "url": "/hangman-NB/static/js/main.2bcbe32f.chunk.js"
+    "revision": "52b91c177e1479822a30",
+    "url": "/hangman-NB/static/js/main.060892de.chunk.js"
   },
   {
     "revision": "95f1a1c72d7b41c22acd",
