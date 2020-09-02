@@ -23,17 +23,21 @@ export class App extends Component {
   }
 
   async loadWords() {
-    var response = await fetch("./words_2.txt", {
+    var response = await fetch(process.env.PUBLIC_URL + "/words_2.txt", {
       method: "GET",
       headers: {
-        "Content-Type": "text/plain; charset=latin-1",
+        "Content-Type": "text/plain",
       },
     });
 
+    /*
     let buffer = await response.arrayBuffer();
 
     let decoder = new TextDecoder("iso-8859-1");
     let text = decoder.decode(buffer);
+    */
+
+    let text = await response.text();
 
     this.words = text.split('\n');
   }
@@ -41,13 +45,13 @@ export class App extends Component {
   newGame() {
     let word = this.words[Math.floor(Math.random() * this.words.length)];
     let game = new OneGame(word);
-    this.setState({ playing: true, game }, () => {this.keyboard.enableAll();this.word.hideAllLetters();});
+    this.setState({ playing: true, game }, () => { this.keyboard.enableAll(); this.word.hideAllLetters(); });
   }
 
   keyboardPressed(k) {
     this.keyboard.disableKey(k);
     let indices = this.state.game.revealLetter(k);
-    
+
     indices.forEach((i) => {
       this.word.setLetterHidden(i, false);
     });
