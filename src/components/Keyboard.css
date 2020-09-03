@@ -1,0 +1,4 @@
+.btn.btn-primary[disabled] {
+    background-color: #444444;
+    border-color: #333333;
+}

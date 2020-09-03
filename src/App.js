@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import Word from "./components/Word";
+import Words from "./components/Words";
 import Hangman from "./components/Hangman";
 
 import "./App.css";
@@ -8,59 +8,81 @@ import GameOver from "./components/GameOver";
 import Win from "./components/Win";
 import Title from "./components/Title";
 
-import { Button, Row, Col } from "react-bootstrap";
+import { Button, Row, Col, Navbar, NavDropdown } from "react-bootstrap";
 import Keyboard from "./components/Keyboard";
-import OneGame from "./OneGame";
+import MultiWordGame from "./MultiWordGame";
+
+import WordLists from "./WordLists.json";
+import Languages from "./Languages.json";
 
 export class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { playing: false, game: null };
+    this.state = { playing: false, game: null, selectedWordList: WordLists[0] };
   }
 
   componentDidMount() {
-    this.loadWords().then(() => this.newGame());
+    this.reloadGame();
   }
 
+  reloadGame() {
+    this.loadWords()
+      .catch((e) => alert(e))
+      .then(() => this.newGame());
+  }
+
+  getCurrentLanguage() {
+    return Languages.find(l => l.name === this.state.selectedWordList.language);
+  }
+
+
   async loadWords() {
-    var response = await fetch(process.env.PUBLIC_URL + "/words_2.txt", {
+    var response = await fetch(process.env.PUBLIC_URL + "/" + this.state.selectedWordList.file, {
       method: "GET",
       headers: {
         "Content-Type": "text/plain",
       },
     });
 
-    /*
-    let buffer = await response.arrayBuffer();
-
-    let decoder = new TextDecoder("iso-8859-1");
-    let text = decoder.decode(buffer);
-    */
+    if (!response.ok) {
+      this.wordSet = null;
+      throw new Error('Error fetching Word List!');
+    }
 
     let text = await response.text();
 
-    this.words = text.split('\n');
+    this.wordSet = text.split('\n').filter(w => w.length > 0);
+  }
+
+  onChangeLanguage(wordList) {
+    this.setState({ game: null, selectedWordList: wordList },
+      () => {
+        this.reloadGame();
+      }
+    );
   }
 
   newGame() {
-    let word = this.words[Math.floor(Math.random() * this.words.length)];
-    let game = new OneGame(word);
-    this.setState({ playing: true, game }, () => { this.keyboard.enableAll(); this.word.hideAllLetters(); });
+    let phrase = this.wordSet[Math.floor(Math.random() * this.wordSet.length)];
+    let game = new MultiWordGame(phrase.split(' '), this.getCurrentLanguage().characterSubstitution);
+    this.setState({ playing: true, game }, () => {
+      this.keyboard.enableAll();
+      this.words.hideAllLetters();
+      this.words.revealLetters(this.state.game.revealUnusableLetters(this.getCurrentLanguage().keyboardRows.join('')));
+    });
   }
 
   keyboardPressed(k) {
     this.keyboard.disableKey(k);
     let indices = this.state.game.revealLetter(k);
 
-    indices.forEach((i) => {
-      this.word.setLetterHidden(i, false);
-    });
+    this.words.revealLetters(indices);
+
     let lose = this.state.game.didLose();
     let win = this.state.game.didWin();
     if (lose || win) {
-      this.word.showAllLetters();
-      this.setState({ playing: false });
-      this.setState({ win, lose });
+      this.words.showAllLetters();
+      this.setState({ playing: false, win, lose });
     } else {
       this.setState({});
     }
@@ -69,6 +91,15 @@ export class App extends Component {
   render() {
     return (
       <div className="App">
+        <Navbar fixed="top" bg="dark">
+          <Navbar.Collapse>
+            <NavDropdown title="Language">
+              {
+                WordLists.map(l => <NavDropdown.Item key={l.name} onClick={() => this.onChangeLanguage(l)}>{l.name}</NavDropdown.Item>)
+              }
+            </NavDropdown>
+          </Navbar.Collapse>
+        </Navbar>
         <header className="App-header">
           {
             this.state.playing
@@ -76,21 +107,24 @@ export class App extends Component {
               : this.state.win
                 ? <Win />
                 : <GameOver />
-
           }
           {
             this.state.game === null ?
               <h1>Loading...</h1>
               :
-              <Row >
-                <Hangman lives={this.state.game.lives} />
+              <Row>
+                <Hangman lives={this.state.game.lives} className="align-self-center" />
                 <Col className="align-self-center">
                   <div className="align-self-center">
-                    <Word ref={(instance) => { this.word = instance; }} word={this.state.game.word} />
+                    <Words ref={instance => this.words = instance} words={this.state.game.getWords()} />
                   </div>
                   {
                     this.state.playing
-                      ? <Keyboard ref={(instance) => this.keyboard = instance} onKeyPressed={this.keyboardPressed.bind(this)} />
+                      ? <Keyboard
+                        keyRows={Languages.find(l => l.name === this.state.selectedWordList.language).keyboardRows}
+                        ref={(instance) => this.keyboard = instance}
+                        onKeyPressed={this.keyboardPressed.bind(this)}
+                      />
                       : <Button className="m-3" onClick={() => { this.newGame(); }}>Restart</Button>
                   }
                 </Col>

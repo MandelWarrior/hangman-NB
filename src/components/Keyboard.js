@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
+import './Keyboard.css';
 
 export class Keyboard extends Component {
 
     constructor(props) {
         super(props);
 
-        this.state = {disabledButtons: []};
+        this.state = { disabledButtons: [] };
     }
 
     render() {
@@ -17,8 +18,8 @@ export class Keyboard extends Component {
                 <Container fluid>
                     <Col>
                         {
-                            ["QWERTYUIOP", "ASDFGHJKLÑ", "ZXCVBNM"].map(
-                                row => <Row className="justify-content-center" key={row}>
+                            this.props.keyRows.map(row => row.toUpperCase()).map(
+                                row => <Row className="justify-content-center flex-nowrap" key={row}>
                                     {
                                         [...row].map(l => <Button disabled={this.state.disabledButtons.includes(l)} onClick={() => this.props.onKeyPressed(l)} className="m-1 btn-lg" key={l}>{l}</Button>)
                                     }
@@ -43,7 +44,7 @@ export class Keyboard extends Component {
     }
 
     enableAll(l) {
-        this.setState({disabledButtons: []});
+        this.setState({ disabledButtons: [] });
     }
 }
 

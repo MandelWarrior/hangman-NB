@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Spanish",
+        "keyboardRows": [
+            "QWERTYUIOP",
+            "ASDFGHJKLÑ",
+            "ZXCVBNM"
+        ],
+        "characterSubstitution": {
+            "from": "ÁÉÍÓÚÄËÏÖÜ",
+            "to": "AEIOUAEIOU"
+        }
+    },
+    {
+        "name": "English",
+        "keyboardRows": [
+            "QWERTYUIOP",
+            "ASDFGHJKL",
+            "ZXCVBNM"
+        ]
+    }
+]

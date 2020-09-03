@@ -14,16 +14,17 @@ export class Word extends Component {
             this.letters.splice(i);
         this.letters[i] = instance;
     }
-    
+
     render() {
         this.letters.length = 0;
-        var letters = [];
-        [...this.props.word].forEach((char, index) => {
-            letters.push(<Letter ref={this.setLetterRef.bind(this, index)} key={index} letter={char}/>);
-        });
 
         return (
-            <div className='word justify-content-center m-3'>{letters}</div>
+            <div className='word justify-content-center m-3'>
+                {
+                    [...this.props.word].map((char, index) =>
+                        <Letter ref={this.setLetterRef.bind(this, index)} key={index} letter={char} />)
+                }
+            </div>
         )
     }
 

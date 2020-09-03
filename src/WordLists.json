@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Español",
+        "file": "words_spanish_1.txt",
+        "language": "Spanish"
+    },
+    {
+        "name": "Español 2",
+        "file": "words_spanish_2.txt",
+        "language": "Spanish"
+    },
+    {
+        "name": "Frases",
+        "file": "phrase_test.txt",
+        "language": "Spanish"
+    },
+    {
+        "name": "English",
+        "file": "words_english.txt",
+        "language": "English"
+    }
+]
