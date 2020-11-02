@@ -8,7 +8,7 @@ import GameOver from "./components/GameOver";
 import Win from "./components/Win";
 import Title from "./components/Title";
 
-import { Button, Row, Navbar, NavDropdown, Container } from "react-bootstrap";
+import { Button, Row, Navbar, NavDropdown, Col } from "react-bootstrap";
 import Keyboard from "./components/Keyboard";
 import MultiWordGame from "./MultiWordGame";
 
@@ -110,12 +110,13 @@ export class App extends Component {
               <h1>Loading...</h1>
               :
               <Row className='justify-content-center'>
-                <div style={{ left: '5%' }}>
-                  <Hangman lives={this.state.game.lives} />
-                </div>
-                <Container className='justify-content-center'>
-
-                  <Row>
+                <Col>
+                  <div style={{ left: '5%' }}>
+                    <Hangman lives={this.state.game.lives} />
+                  </div>
+                </Col>
+                <Col className='justify-content-center'>
+                  <Row className='justify-content-center'>
                     <Words words={this.state.playing ? this.state.game.getLetters() : this.state.game.getRawLetters()} />
                   </Row>
                   <Row>
@@ -129,7 +130,7 @@ export class App extends Component {
                         : <Button className="m-3" onClick={() => { this.newGame(); }}>Restart</Button>
                     }
                   </Row>
-                </Container>
+                </Col>
               </Row>
           }
         </header>
