@@ -21,7 +21,7 @@ export class Game {
 
     reset() {
         this.win = false;
-        this.lives = 6;
+        this.lives = 9;
     }
 }
 
