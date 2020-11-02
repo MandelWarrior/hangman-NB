@@ -13,5 +13,10 @@
         "name": "English",
         "file": "words_english.txt",
         "language": "English"
+    },
+    {
+        "name": "Türk",
+        "file": "words_turkish.txt",
+        "language": "Turkish"
     }
 ]

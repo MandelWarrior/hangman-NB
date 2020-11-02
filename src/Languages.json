@@ -18,5 +18,16 @@
             "ASDFGHJKL",
             "ZXCVBNM"
         ]
+    },{
+        "name": "Turkish",
+        "keyboardRows": [
+            "QWERTYUIOP",
+            "ASDFGHJKL",
+            "ZXCVBNM"
+        ],
+        "characterSubstitution": {
+            "from": "ĞÜŞİÖÇ",
+            "to": "GUSIOC"
+        }
     }
 ]
