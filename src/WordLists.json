@@ -10,11 +10,6 @@
         "language": "Spanish"
     },
     {
-        "name": "Frases",
-        "file": "phrase_test.txt",
-        "language": "Spanish"
-    },
-    {
         "name": "English",
         "file": "words_english.txt",
         "language": "English"

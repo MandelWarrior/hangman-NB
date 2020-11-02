@@ -8,7 +8,7 @@ import GameOver from "./components/GameOver";
 import Win from "./components/Win";
 import Title from "./components/Title";
 
-import { Button, Row, Col, Navbar, NavDropdown } from "react-bootstrap";
+import { Button, Row, Navbar, NavDropdown, Container } from "react-bootstrap";
 import Keyboard from "./components/Keyboard";
 import MultiWordGame from "./MultiWordGame";
 
@@ -67,21 +67,18 @@ export class App extends Component {
     let game = new MultiWordGame(phrase.split(' '), this.getCurrentLanguage().characterSubstitution);
     this.setState({ playing: true, game }, () => {
       this.keyboard.enableAll();
-      this.words.hideAllLetters();
-      this.words.revealLetters(this.state.game.revealUnusableLetters(this.getCurrentLanguage().keyboardRows.join('')));
+      this.state.game.revealUnusableLetters(this.getCurrentLanguage().keyboardRows.join(''));
+      this.setState({});
     });
   }
 
   keyboardPressed(k) {
     this.keyboard.disableKey(k);
-    let indices = this.state.game.revealLetter(k);
-
-    this.words.revealLetters(indices);
+    this.state.game.revealLetter(k);
 
     let lose = this.state.game.didLose();
     let win = this.state.game.didWin();
     if (lose || win) {
-      this.words.showAllLetters();
       this.setState({ playing: false, win, lose });
     } else {
       this.setState({});
@@ -112,22 +109,27 @@ export class App extends Component {
             this.state.game === null ?
               <h1>Loading...</h1>
               :
-              <Row>
-                <Hangman lives={this.state.game.lives} className="align-self-center" />
-                <Col className="align-self-center">
-                  <div className="align-self-center">
-                    <Words ref={instance => this.words = instance} words={this.state.game.getWords()} />
-                  </div>
-                  {
-                    this.state.playing
-                      ? <Keyboard
-                        keyRows={Languages.find(l => l.name === this.state.selectedWordList.language).keyboardRows}
-                        ref={(instance) => this.keyboard = instance}
-                        onKeyPressed={this.keyboardPressed.bind(this)}
-                      />
-                      : <Button className="m-3" onClick={() => { this.newGame(); }}>Restart</Button>
-                  }
-                </Col>
+              <Row className='justify-content-center'>
+                <div style={{ left: '5%' }}>
+                  <Hangman lives={this.state.game.lives} />
+                </div>
+                <Container className='justify-content-center'>
+
+                  <Row>
+                    <Words words={this.state.playing ? this.state.game.getLetters() : this.state.game.getRawLetters()} />
+                  </Row>
+                  <Row>
+                    {
+                      this.state.playing
+                        ? <Keyboard
+                          keyRows={Languages.find(l => l.name === this.state.selectedWordList.language).keyboardRows}
+                          ref={(instance) => this.keyboard = instance}
+                          onKeyPressed={this.keyboardPressed.bind(this)}
+                        />
+                        : <Button className="m-3" onClick={() => { this.newGame(); }}>Restart</Button>
+                    }
+                  </Row>
+                </Container>
               </Row>
           }
         </header>

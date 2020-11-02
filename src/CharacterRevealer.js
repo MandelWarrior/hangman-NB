@@ -41,7 +41,7 @@ export class CharacterRevealer {
     }
 
     getLetters() {
-        return this.word.map((l, i) => this.hiddenLetters[i] ? '_' : l);
+        return [...this.word].map((l, i) => this.hiddenLetters[i] ? '_' : l).join('');
     }
 }
 

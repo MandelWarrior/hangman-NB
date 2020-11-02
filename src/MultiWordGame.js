@@ -1,4 +1,3 @@
-import { withRouter } from 'react-router-dom';
 import CharacterRevealer from './CharacterRevealer.js';
 import Game from './Game.js';
 
@@ -40,6 +39,14 @@ export class MultiWordGame extends Game {
             revealed.push(wordIndices);
         });
         return revealed;
+    }
+
+    getLetters() {
+        return this.wordGames.map(w => w.getLetters()).join(' ');
+    }
+
+    getRawLetters() {
+        return this.wordGames.map(w => w.rawWord).join(' ');
     }
 }
 
